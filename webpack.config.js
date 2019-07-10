@@ -2,10 +2,22 @@
 const { helpers, presets } = require( '@humanmade/webpack-helpers' );
 const { filePath } = helpers;
 
-module.exports = presets.production( {
-	entry: filePath( 'src/responsive-containers' ),
-	output: {
-		path: filePath( 'build' ),
-		filename: 'responsive-containers.js',
-	},
-} );
+// Build the same entrypoint twice, once using a development configuration
+// to provide the bundle used when SCRIPT_DEBUG is true, and once for the
+// normal optimized production build.
+module.exports = [
+	presets.development( {
+		entry: filePath( 'src/responsive-containers' ),
+		output: {
+			path: filePath( 'build' ),
+			filename: 'responsive-containers.js',
+		},
+	} ),
+	presets.production( {
+		entry: filePath( 'src/responsive-containers' ),
+		output: {
+			path: filePath( 'build' ),
+			filename: 'responsive-containers.min.js',
+		},
+	} ),
+];
