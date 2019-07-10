@@ -36,6 +36,7 @@
     "not ie < 10"
   ],
   "dependencies": {
+    "lodash.debounce": "^4.0.8",
     "resize-observer-polyfill": "^1.5.1"
   },
   "devDependencies": {

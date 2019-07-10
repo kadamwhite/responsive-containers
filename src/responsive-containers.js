@@ -5,6 +5,7 @@
  * in the README for more information.
  */
 import ResizeObserver from 'resize-observer-polyfill';
+import debounce from 'lodash.debounce';
 
 // Default breakpoints that should apply to all observed
 // elements that do not define their own custom breakpoints.
@@ -30,6 +31,10 @@ export const getBreakpoints = ( node ) => {
 	let breakpoints = defaultBreakpoints;
 	if ( node && node.dataset && node.dataset.responsiveContainer ) {
 		breakpoints = JSON.parse( node.dataset.responsiveContainer );
+		if ( typeof breakpoints !== 'object' ) {
+			// A data-attr written from React will often be set to `="true"`.
+			breakpoints = defaultBreakpoints;
+		}
 	}
 	return Object.keys( breakpoints ).reduce(
 		( carry, className ) => carry.concat( {
@@ -80,18 +85,51 @@ const ro = new ResizeObserver( ( entries ) => {
 	} );
 } );
 
+// Maintain an internal list of containers so we can apply the observer
+// to new elements as they're added to the page.
+let containers = [];
+
 /**
  * Find all responsive container elements on the page and begin observing
  * them for width changes.
  */
 const initializeResponsiveContainers = () => {
 	// Populate the list with the new containers as we register them.
-	// Run the update method manually for each item as a safeguard.
+	const activeContainers = {};
 	getContainers().forEach( ( container ) => {
-		ro.observe( container );
-		// updateContainerClasses( container );
+		const existingContainerIndex = containers.indexOf( container );
+		if ( existingContainerIndex === -1 ) {
+			// Container is new! Observe it.
+			ro.observe( container );
+			// Mark the incoming container as active.
+			activeContainers[ containers.length ] = true;
+			// Save a reference to the known container.
+			containers.push( container );
+		} else {
+			activeContainers[ existingContainerIndex ] = true;
+		}
+	} );
+	// Prune and unobserve containers which no longer appear on the page.
+	containers = containers.filter( ( container, idx ) => {
+		if ( ! activeContainers[ idx ] ) {
+			ro.unobserve( container );
+			return false;
+		}
+		return true;
 	} );
 };
 
 // Run the discovery method once on initial load.
-document.addEventListener( 'DOMContentLoaded', initializeResponsiveContainers );
+document.addEventListener( 'DOMContentLoaded', () => {
+	initializeResponsiveContainers();
+
+	// If the WordPress data module is present, periodially update our container
+	// list when the editor store is altered.
+	/* global wp:false */
+	if ( window.wp && window.wp.data ) {
+		// Create a debounced version of updateContainers, because the subscribe
+		// callback can fire quite often. 100ms is a barely noticeable delay.
+		const updateContainers = debounce( initializeResponsiveContainers, 100 );
+		wp.data.subscribe( updateContainers );
+	}
+} );
