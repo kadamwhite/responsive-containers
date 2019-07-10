@@ -28,4 +28,5 @@ readmeContent = `${
 
 ${ readmeContent }`.replace( /\n\n+/g, '\n\n' );
 
-writeFileSync( filePath( 'readme.tmp' ) );
+// Write generated README content to a temporary file.
+writeFileSync( filePath( 'readme.tmp' ), readmeContent );
