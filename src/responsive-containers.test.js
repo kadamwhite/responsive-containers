@@ -1,16 +1,8 @@
 import {
 	getBreakpoints,
+	responsiveContainerBreakpoints,
 	updateContainerClasses,
 } from './responsive-containers';
-
-/**
- * Take a data object and stringify it as JSON, then replace quotation marks
- * with HTML entities so the string may be used as a data attribute.
- *
- * @param {Object} obj An object to stringify & escape.
- * @return {string} Stringified object.
- */
-const objToDataAttr = ( obj ) => JSON.stringify( obj ).replace( /"/g, '&quot;' );
 
 describe( 'getBreakpoints', () => {
 	beforeAll( () => {
@@ -18,7 +10,7 @@ describe( 'getBreakpoints', () => {
 		document.body.innerHTML = `
 			<div id="no-overrides" data-responsive-container></div>
 			<div id="has-overrides" data-responsive-container="${
-				objToDataAttr( {
+				responsiveContainerBreakpoints( {
 					small: 400,
 					huge: 1440,
 					large: 800,
@@ -62,12 +54,38 @@ describe( 'getBreakpoints', () => {
 	} );
 } );
 
+describe( 'responsiveContainerBreakpoints', () => {
+	it( 'is a function', () => {
+		expect( responsiveContainerBreakpoints ).toBeInstanceOf( Function );
+	} );
+
+	it( 'serializes an object as escaped JSON', () => {
+		const result = responsiveContainerBreakpoints( {
+			small: 400,
+			large: 2501,
+		} );
+		expect( typeof result ).toBe( 'string' );
+		expect( result ).toEqual( '{&quot;small&quot;:400,&quot;large&quot;:2501}' );
+	} );
+
+	it( 'strips non-numeric values', () => {
+		const result = responsiveContainerBreakpoints( {
+			small: 400,
+			medium: 'highly questionable',
+			large: 2501,
+			infinite: function madhax() {},
+		} );
+		expect( typeof result ).toBe( 'string' );
+		expect( result ).toEqual( '{&quot;small&quot;:400,&quot;large&quot;:2501}' );
+	} );
+} );
+
 describe( 'updateContainerClasses', () => {
 	beforeEach( () => {
 		/* eslint-disable indent */
 		document.body.innerHTML = `
 			<div id="container" data-responsive-container="${
-				objToDataAttr( {
+				responsiveContainerBreakpoints( {
 					medium: 400,
 					huge: 1440,
 					large: 800,

@@ -20,6 +20,32 @@ const defaultBreakpoints = {
 };
 
 /**
+ * Take a data object and stringify it as JSON, then replace quotation marks
+ * with HTML entities so the string may be used as a data attribute.
+ *
+ * @param {Object} obj An object to stringify & escape.
+ * @return {string} Stringified object.
+ */
+export const responsiveContainerBreakpoints = ( obj ) => {
+	// Clumsily sanitize the object by stripping non-numeric values.
+	const sanitized = Object.keys( obj ).reduce(
+		/* eslint-disable no-shadow */
+		( sanitized, key ) => {
+			if ( typeof obj[ key ] === 'number' ) {
+				sanitized[ key ] = obj[ key ];
+			}
+			return sanitized;
+		},
+		/* eslint-enable */
+		{}
+	);
+	return JSON.stringify( sanitized ).replace( /"/g, '&quot;' );
+};
+
+// Expose this method in the global scope.
+window.responsiveContainerBreakpoints = responsiveContainerBreakpoints;
+
+/**
  * Return the default breakpoints, or else node-specific breakpoints specified
  * through a `data-breakpoints` JSON string, formatted as a sorted array of
  * classname/size objects.
