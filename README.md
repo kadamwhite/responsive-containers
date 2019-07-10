@@ -17,3 +17,12 @@ The Responsive Containers plugin implements an approach popularized by [Philip W
 Under the hood this is all driven by [`ResizeObserver`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver), a new browser feature that can efficiently detect when an element changes size. We use this method to track the size of specific containers on the page and apply a set of classes to those elements based on how big they appear on the screen.
 
 Note: **Installing and activating this plugin will not change anything about your site on its own.** You have to update your theme or plugin CSS and HTML to designate which elements you want to become responsive containers.
+
+## License & Attribution
+
+This plugin is licensed under the terms of the [GNU General Public License](./license.txt) (or "GPL"). It is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
+
+It was created by K. Adam White at [Human Made](https://humanmade.com), based on a concept popularized by [Philip Walton](https://philipwalton.com/).
+
+This plugin utilizes the [`resize-observer-polyfill` library](https://www.npmjs.com/package/resize-observer-polyfill) by Denis Rul, released under the MIT license and &copy; 2016 Denis Rul.
+
