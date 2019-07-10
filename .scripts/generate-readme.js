@@ -15,9 +15,7 @@ readmeContent = readmeContent.toString();
 // Convert README.md markdown into readme.txt-compatible formatting.
 readmeContent = [
 	[ /<!-- ignore -->[\s\S]*?<!-- \/ignore -->/g, '' ],
-	[ /### ([^\n]+)/g, '= $1 =' ],
 	[ /## ([^\n]+)/g, '== $1 ==' ],
-	[]
 ].reduce(
 	( str, [ pattern, replacement ] ) => str.replace( pattern, replacement ),
 	readmeContent

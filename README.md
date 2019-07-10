@@ -58,9 +58,24 @@ Under the hood this is all driven by [`ResizeObserver`](https://developer.mozill
 
 Installing and activating this plugin will not change anything about your site on its own. You have to update your theme or plugin to add the `data-responsive-containers` HTML attribute to any elements you wish to use as responsive containers
 
+## Installation
+
+=== From within WordPress ===
+
+1. Visit 'Plugins > Add New'
+1. Search for 'Responsive Containers'
+1. Activate the Responsive Containers plugin from your Plugins page.
+1. Start using `data-responsive-container` attributes within your theme or plugin.
+
+=== Manually ===
+
+1. Upload the `responsive-containers` folder to the `/wp-content/plugins/` directory
+1. Activate the Responsive Containers plugin from your Plugins page.
+1. Start using `data-responsive-container` attributes within your theme or plugin.
+
 ## Changelog
 
-### 1.0
+= 1.0 =
 * Loads `responsive-containers.js` to observe and decorate `data-responsive-container` elements.
 * Introduces `responsive_container_breakpoints()` method to render a stringified & attribute-escaped custom breakpoints array.
 
