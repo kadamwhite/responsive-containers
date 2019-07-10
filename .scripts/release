@@ -18,9 +18,9 @@ then
 fi
 
 # Error if malformed version number provided.
-if ! [[ $VERSION =~ ^[0-9]*\.[0-9]*\.[0-9]*$ ]]
+if ! [[ $VERSION =~ ^[0-9]*\.[0-9]*$ ]]
 then
-  echo "Error! Called with \"$VERSION\"; use a valid, full version number formatted \"#.#.#\"."
+  echo "Error! Called with \"$VERSION\"; use a valid, major-minor version number formatted \"#.#\"."
   echo ""; exit 1
 fi
 
@@ -66,21 +66,34 @@ fi
 
 echo "Preparing release $VERSION"
 
+# Ensure we're starting with a clean slate.
 rm -rf build
+
+# Generate a temporary readme file.
 npm run generate-temporary-readme
+
+# Checkout release branch and merge in master.
 git checkout release
 git merge master -X theirs --no-edit
+
+# Prepare the build.
+rm -rf build # These will have been reinstated by checkout.
 npm run build
 git add -f build
+
 # Remove files we do not want to push to SVN.
-git rm --no-cache README.md
+git rm --no-cache package-lock.json
 git rm --no-cache readme-header.txt
+git rm --no-cache README.md
 git rm -rf .scripts
-git rm -rf docs
 git rm -rf assets/*.psd
+git rm -rf docs
+
+# Promote the temporary README to readme.txt.
 mv readme.tmp readme.txt
-echo "Tag release v$VERSION"
-# git commit --amend -m "Tag release v$VERSION"
-# git tag "v$VERSION"
+git add -f readme.txt
+
+git commit --amend -m "Tag release v$VERSION"
+git tag "v$VERSION"
 
 echo "Release v$VERSION tagged and ready for review."
