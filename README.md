@@ -23,13 +23,13 @@ If you have a block or widget in your site that you wish to use as a responsive 
 <div class="calendar-block" data-responsive-container>
 ```
 
-With just that and nothing more, your container will now be tagged with additional classes based on how big they appear:
+By adding that data-attribute and nothing more, your container will now be tagged with additional classes based on how big they appear:
 - `container-sm` if the container is 519px wide or less,
 - `container-md` if it is between 520px and 899px wide,
 - `container-lg` if it is between 900px and 1279px wide, and
 - `container-xl` for any element 1280px or wider.
 
-These default values are by definition somewhat arbitrary, so you may also provide your own custom theme- or plugin-specific breakpoint values using the `data-responsive-container` attribute. When rendering your element or block in PHP, pass an array of **class names** and the **minimum width** at which they should be applied. These class names can be generic like the `.container-*` classes used by default, or they may be specific to the element being styled:
+These are default values and therefore somewhat arbitrary, so you may also provide your own custom theme- or plugin-specific breakpoint values using the `data-responsive-container` attribute. When rendering your element or block in PHP, pass an array of **class names** and the **minimum width** at which each class should be applied. These class names can be generic like the default `.container-*` classes, or they may be specific to the element being styled:
 
 ```php
 echo sprintf(
@@ -42,9 +42,20 @@ echo sprintf(
 );
 ```
 
-Using this example your container would receive the `.myblock--2-column` class from 600px to 899px, and `.myblock--3-column` at or above 900px.
+In this example your container would receive the `.myblock--2-column` class from 600px to 899px, and `.myblock--3-column` at or above 900px.
 
-Note that in this case the `.myblock` element receives no custom class below 600px. We don't apply any class names below your specified minimum because we assume styles are written mobile-first, but you may ensure your smallest class is always applied by providing a minimum width of `0`.
+Note that in this case the `.myblock` element receives no custom class below 600px. We don't apply any class names below your specified minimum because we assume styles are written mobile-first, but you may ensure your smallest class is always applied by providing a minimum width of `0`:
+
+```php
+echo sprintf(
+  '<div class="myblock" data-responsive-container="%s">',
+  responsive_container_breakpoints( [
+    'myblock--1-column' => 0, // Will apply up to 599px.
+    'myblock--2-column' => 600,
+    'myblock--3-column' => 900,
+  ] )
+);
+```
 
 ## Frequently Asked Questions
 
@@ -54,9 +65,9 @@ The Responsive Containers plugin implements an approach popularized by [Philip W
 
 Under the hood this is all driven by [`ResizeObserver`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver), a new browser feature that efficiently detects element size changes. We use this method to track the size of specific containers on the page and apply a set of classes to those elements based on how big they appear on the screen.
 
-### I activated this plugin and nothing changed!
+### I activated this plugin and nothing changed
 
-Installing and activating this plugin will not change anything about your site on its own. You have to update your theme or plugin to add the `data-responsive-containers` HTML attribute to any elements you wish to use as responsive containers
+Installing and activating this plugin will not change anything about your site on its own. You have to update your theme or plugin to add the `data-responsive-containers` HTML attribute to any elements you wish to use as responsive containers.
 
 ## Installation
 
