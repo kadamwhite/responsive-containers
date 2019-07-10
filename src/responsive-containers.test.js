@@ -28,9 +28,9 @@ describe( 'getBreakpoints', () => {
 		const result = getBreakpoints();
 		expect( result ).toEqual( [
 			{ name: 'container-sm', size: 0 },
-			{ name: 'container-md', size: 520 },
-			{ name: 'container-lg', size: 900 },
-			{ name: 'container-xl', size: 1440 },
+			{ name: 'container-md', size: 420 },
+			{ name: 'container-lg', size: 768 },
+			{ name: 'container-xl', size: 1024 },
 		] );
 	} );
 
@@ -38,9 +38,9 @@ describe( 'getBreakpoints', () => {
 		const result = getBreakpoints( document.getElementById( 'no-overrides' ) );
 		expect( result ).toEqual( [
 			{ name: 'container-sm', size: 0 },
-			{ name: 'container-md', size: 520 },
-			{ name: 'container-lg', size: 900 },
-			{ name: 'container-xl', size: 1440 },
+			{ name: 'container-md', size: 420 },
+			{ name: 'container-lg', size: 768 },
+			{ name: 'container-xl', size: 1024 },
 		] );
 	} );
 

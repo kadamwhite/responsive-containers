@@ -24,10 +24,10 @@ If you have a block or widget in your site that you wish to use as a responsive 
 ```
 
 By adding that data-attribute and nothing more, your container will now be tagged with additional classes based on how big they appear:
-- `container-sm` if the container is 519px wide or less,
-- `container-md` if it is between 520px and 899px wide,
-- `container-lg` if it is between 900px and 1279px wide, and
-- `container-xl` for any element 1280px or wider.
+- `container-sm` if the container is 419px wide or less,
+- `container-md` if it is between 420px and 767px wide,
+- `container-lg` if it is between 768px and 1023px wide, and
+- `container-xl` for any element 1024px or wider.
 
 These are default values and therefore somewhat arbitrary, so you may also provide your own custom theme- or plugin-specific breakpoint values using the `data-responsive-container` attribute. When rendering your element or block in PHP, pass an array of **class names** and the **minimum width** at which each class should be applied. These class names can be generic like the default `.container-*` classes, or they may be specific to the element being styled:
 
@@ -56,6 +56,10 @@ echo sprintf(
   ] )
 );
 ```
+
+## Screenshots
+
+1. The same block may be inserted anywhere on the page and will receive different classes depending on the size of their parent. These classes may be used to easily style your blocks for a variety of contexts. In this screenshot you can see that an example "responsive container" block receives the `.container-xl` class when full-width, `.container-sm` when constrained within a narrow column, and so on.
 
 ## Frequently Asked Questions
 

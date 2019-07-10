@@ -14,9 +14,9 @@ import debounce from 'lodash.debounce';
 // element therefore would only receive `.container-md`.
 const defaultBreakpoints = {
 	'container-sm': 0,
-	'container-md': 520,
-	'container-lg': 900,
-	'container-xl': 1440,
+	'container-md': 420,
+	'container-lg': 768,
+	'container-xl': 1024,
 };
 
 /**
