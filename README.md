@@ -60,7 +60,7 @@ Installing and activating this plugin will not change anything about your site o
 
 ## Changelog
 
-= 1.0 =
+### 1.0
 * Loads `responsive-containers.js` to observe and decorate `data-responsive-container` elements.
 * Introduces `responsive_container_breakpoints()` method to render a stringified & attribute-escaped custom breakpoints array.
 

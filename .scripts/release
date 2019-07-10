@@ -1,0 +1,86 @@
+#!/bin/bash
+
+# This script will merge `master` into `release`, build updated copies of all
+# generated files, and then commit those files and tag the release. It should
+# be run on a clean HEAD from the master branch, and version numbers should
+# already be bumped in package.json and the plugin PHP file.
+#
+# Usage: npm run release #.#.#
+
+VERSION=$1
+
+# Error if no version number provided.
+if [[ ! $VERSION ]]
+then
+  echo "Error! No version number provided. Pass in the version being released:"
+  echo "    npm run release #.#.#"
+  echo ""; exit 1
+fi
+
+# Error if malformed version number provided.
+if ! [[ $VERSION =~ ^[0-9]*\.[0-9]*\.[0-9]*$ ]]
+then
+  echo "Error! Called with \"$VERSION\"; use a valid, full version number formatted \"#.#.#\"."
+  echo ""; exit 1
+fi
+
+# Only proceed if on the master branch.
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+if [[ $BRANCH != "master" ]]
+then
+  echo 'Error! Not on master branch. Aborting release.'
+  echo ""; exit 1
+fi
+
+# Only proceed if HEAD is not dirty.
+if [[ $(git diff --shortstat 2> /dev/null | tail -n1) != "" ]]
+then
+  echo "Error! Git repository is dirty. Commit or stash changed files before release."
+  echo ""; exit 1
+fi
+
+# Only proceed if no untracked files are present.
+if [[ $( git status --porcelain 2>/dev/null | grep "^??" | wc -l ) != 0 ]]
+then
+  echo "Error! Untracked files detected. Commit or remove these files before release."
+  echo ""; exit 1
+fi
+
+# Only proceed if provided version number appears in package.json.
+grep -q $VERSION $PWD/package.json
+if [[ $? != 0 ]]
+then
+  echo "Error! Version number $VERSION not found in package.json."
+  echo "Please update package.json, responsive-containers.php, and readme-header.txt to $VERSION."
+  echo ""; exit 1
+fi
+
+# Only proceed if provided version number appears in main plugin PHP file.
+grep -q $VERSION $PWD/responsive-containers.php
+if [[ $? != 0 ]]
+then
+  echo "Error! Version number $VERSION not found in responsive-containers.php."
+  echo "Please update package.json, responsive-containers.php, and readme-header.txt to $VERSION."
+  echo ""; exit 1
+fi
+
+echo "Preparing release $VERSION"
+
+rm -rf build
+npm run generate-temporary-readme
+git checkout release
+git merge master -X theirs --no-edit
+npm run build
+git add -f build
+# Remove files we do not want to push to SVN.
+git rm --no-cache README.md
+git rm --no-cache readme-header.txt
+git rm -rf .scripts
+git rm -rf docs
+git rm -rf assets/*.psd
+mv readme.tmp readme.txt
+echo "Tag release v$VERSION"
+# git commit --amend -m "Tag release v$VERSION"
+# git tag "v$VERSION"
+
+echo "Release v$VERSION tagged and ready for review."
