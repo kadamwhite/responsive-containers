@@ -1,16 +1,21 @@
+<!-- ignore -->
 # Responsive Containers
+<!-- /ignore -->
 
-[CSS media queries](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries) let us style elements based on the size of the screen. What if we wanted to style them based on the size of their **container**? A widget or block should often look different if it's full-width or constrained within a column or sidebar, but we don't have any way to write **container queries** to style those elements based on their on-screen width&hellip; or, we didn't until now!
+## Description
 
+[CSS media queries](https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries) let us style elements based on the size of the screen. What if we wanted to style them based on the size of their **container**? A widget or block should often look different if it's full-width or constrained within a column or sidebar, but we didn't have any way to write **container queries** to style those elements based on their on-screen width&hellip; until now!
+
+<!-- ignore -->
 ![Philip Walton's "Calendar" responsive components demo](./docs/images/responsive-components-calendar-demo.gif)
-
 _[Calendar demo from Philip Walton's Responsive Components demo site](https://philipwalton.github.io/responsive-components/#calendar)_
+<!-- /ignore -->
 
-This plugin loads a small JavaScript file that conditionally applies classes to elements based on how wide those elements are in the browser. This can be used by other themes and plugins to write container-specific styles for editor blocks or widgets, so that they will display correctly wherever they're placed in the page.
+This plugin loads a small JavaScript file that conditionally applies classes to elements based on how wide those elements are in the browser. This can be used by other themes and plugins to write container-specific styles for editor blocks or widgets, so that they will display correctly wherever they are placed in the page.
 
 The script works on the frontend and in the block editor — see your responsive styles live while you're composing your post, and trust that your widgets and blocks will look their best whether they're full-width or in the narrowest sidebar.
 
-## Usage
+### Usage
 
 If you have a block or widget in your site that you wish to use as a responsive container, add the `data-responsive-container` attribute to that block's container element. For example, the parent `<div>` for a calendar block might look like this:
 
@@ -41,13 +46,23 @@ Using this example your container would receive the `.myblock--2-column` class f
 
 Note that in this case the `.myblock` element receives no custom class below 600px. We don't apply any class names below your specified minimum because we assume styles are written mobile-first, but you may ensure your smallest class is always applied by providing a minimum width of `0`.
 
-## How Does This Work?
+## Frequently Asked Questions
 
-The Responsive Containers plugin implements an approach popularized by [Philip Walton's excellent article _Responsive Components: a Solution to the Container Queries Problem_]. What this plugin does is apply his solution to WordPress sites so that, assuming this plugin is installed, any other plugin can opt-in to responsive container styling.
+### How does this work?
 
-Under the hood this is all driven by [`ResizeObserver`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver), a new browser feature that can efficiently detect when an element changes size. We use this method to track the size of specific containers on the page and apply a set of classes to those elements based on how big they appear on the screen.
+The Responsive Containers plugin implements an approach popularized by [Philip Walton's excellent article _Responsive Components: a Solution to the Container Queries Problem_](https://philipwalton.com/articles/responsive-components-a-solution-to-the-container-queries-problem/). What this plugin does is apply his solution to WordPress sites so that, assuming this plugin is installed, any other plugin or theme can opt-in to responsive container styling.
 
-Note: **Installing and activating this plugin will not change anything about your site on its own.** You have to update your theme or plugin CSS and HTML to designate which elements you want to become responsive containers.
+Under the hood this is all driven by [`ResizeObserver`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver), a new browser feature that efficiently detects element size changes. We use this method to track the size of specific containers on the page and apply a set of classes to those elements based on how big they appear on the screen.
+
+### I activated this plugin and nothing changed!
+
+Installing and activating this plugin will not change anything about your site on its own. You have to update your theme or plugin to add the `data-responsive-containers` HTML attribute to any elements you wish to use as responsive containers
+
+## Changelog
+
+= 1.0 =
+* Loads `responsive-containers.js` to observe and decorate `data-responsive-container` elements.
+* Introduces `responsive_container_breakpoints()` method to render a stringified & attribute-escaped custom breakpoints array.
 
 ## License & Attribution
 
