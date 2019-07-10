@@ -4,6 +4,8 @@
   "version": "1.0.0",
   "description": "A WordPress plugin for styling responsive containers with ResizeObserver",
   "author": "K Adam White",
+  "homepage": "https://github.com/kadamwhite/responsive-containers#readme",
+  "license": "GPL-2.0-or-later",
   "directories": {
     "doc": "docs"
   },
@@ -14,15 +16,16 @@
     "type": "git",
     "url": "git+ssh://git@github.com/kadamwhite/responsive-containers.git"
   },
+  "bugs": {
+    "url": "https://github.com/kadamwhite/responsive-containers/issues"
+  },
   "keywords": [
     "wordpress",
     "wordpress-plugin",
     "responsive-containers",
     "resizeobserver"
   ],
-  "license": "GPL-2.0-or-later",
-  "bugs": {
-    "url": "https://github.com/kadamwhite/responsive-containers/issues"
-  },
-  "homepage": "https://github.com/kadamwhite/responsive-containers#readme"
+  "dependencies": {
+    "resize-observer-polyfill": "^1.5.1"
+  }
 }
