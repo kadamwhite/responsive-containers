@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "webpack --config=webpack.config.js",
-    "generate-readme": "node .scripts/generate-readme",
+    "generate-temporary-readme": "node .scripts/generate-readme",
     "lint": "eslint .",
     "test": "jest"
   },
