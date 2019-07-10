@@ -13,6 +13,7 @@
     "build": "webpack --config=webpack.config.js",
     "generate-temporary-readme": "node .scripts/generate-readme",
     "lint": "eslint .",
+    "release": "bash .scripts/release",
     "test": "jest"
   },
   "repository": {
