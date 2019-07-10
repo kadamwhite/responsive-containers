@@ -1,0 +1,10 @@
+{
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "extends": [ "plugin:@wordpress/eslint-plugin/esnext" ],
+  "rules": {
+    "comma-dangle": [ "error", "always-multiline" ],
+  },
+}
