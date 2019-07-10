@@ -94,6 +94,6 @@ mv readme.tmp readme.txt
 git add -f readme.txt
 
 git commit --amend -m "Tag release v$VERSION"
-git tag "v$VERSION"
+git tag "$VERSION"
 
-echo "Release v$VERSION tagged and ready for review."
+echo "Release $VERSION tagged and ready for review."
