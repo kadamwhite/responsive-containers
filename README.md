@@ -93,6 +93,7 @@ Installing and activating this plugin will not change anything about your site o
 = 1.1 =
 * Alter class application logic to always apply classes once their minimum threshold width has been met or exceeded.
 * Adjust README formatting to fix code block rendering issues.
+* Begin work to support usage within the block editor.
 * Un-document the `responsive_container_breakpoints()` method until it is confirmed to be a useful helper.
 
 = 1.0 =
