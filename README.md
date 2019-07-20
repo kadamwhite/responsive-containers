@@ -35,8 +35,7 @@ These are default values and therefore somewhat arbitrary, so you may also provi
 ```php
 echo sprintf(
   '<div class="myblock" data-responsive-container="%s">',
-  // responsive_container_breakpoints() calls esc_attr internally.
-  responsive_container_breakpoints( [
+  esc_attr( wp_json_encode( [
     'myblock--2-column' => 600,
     'myblock--3-column' => 900,
   ] )
@@ -50,7 +49,7 @@ Note that in this case the `.myblock` element receives no custom class below 600
 ```php
 echo sprintf(
   '<div class="myblock" data-responsive-container="%s">',
-  responsive_container_breakpoints( [
+  esc_attr( wp_json_encode( [
     'myblock--1-column' => 0, // Will apply in all circumstances.
     'myblock--2-column' => 600,
     'myblock--3-column' => 900,
@@ -94,6 +93,7 @@ Installing and activating this plugin will not change anything about your site o
 = 1.1 =
 * Adjust README formatting to fix code block rendering issues.
 * Alter class application logic to always apply classes once their minimum threshold width has been met or exceeded.
+* Un-document the `responsive_container_breakpoints()` method until it is confirmed to be a useful helper.
 
 = 1.0 =
 * Loads `responsive-containers.js` to observe and decorate `data-responsive-container` elements.
