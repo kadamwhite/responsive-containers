@@ -7,16 +7,16 @@
 import ResizeObserver from 'resize-observer-polyfill';
 import debounce from 'lodash.debounce';
 
-// Default breakpoints that should apply to all observed
-// elements that do not define their own custom breakpoints.
-// Classes are exclusive: each class will apply up to its
-// specified maximum value, but not above. A 500px-wide
-// element therefore would only receive `.container-md`.
+// Default breakpoints that should apply to all observed elements that do not
+// define their own custom breakpoints.
+// Classes are layered: each class will apply once its minimum width value has
+// been exceeded. A 700px-wide element therefore would receive both
+// `.container-sm` and `.container-md`.
 const defaultBreakpoints = {
-	'container-sm': 0,
-	'container-md': 420,
+	'container-sm': 420,
+	'container-md': 640,
 	'container-lg': 768,
-	'container-xl': 1024,
+	'container-xl': 960,
 };
 
 /**
