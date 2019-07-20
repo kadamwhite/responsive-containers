@@ -122,10 +122,10 @@ const initializeResponsiveContainers = () => {
 document.addEventListener( 'DOMContentLoaded', () => {
 	initializeResponsiveContainers();
 
-	// If the WordPress data module is present, periodially update our container
+	// If the WordPress data module is present, periodically update our container
 	// list when the editor store is altered.
-	/* global wp:false */
 	if ( window.wp && window.wp.data ) {
+		/* global wp:false */
 		// Create a debounced version of updateContainers, because the subscribe
 		// callback can fire quite often. 100ms is a barely noticeable delay.
 		const updateContainers = debounce( initializeResponsiveContainers, 100 );
