@@ -14,8 +14,8 @@ import debounce from 'lodash.debounce';
 // `.container-sm` and `.container-md`.
 const defaultBreakpoints = {
 	'container-sm': 420,
-	'container-md': 640,
-	'container-lg': 768,
+	'container-md': 600,
+	'container-lg': 720,
 	'container-xl': 960,
 };
 

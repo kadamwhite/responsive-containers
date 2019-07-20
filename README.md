@@ -26,8 +26,8 @@ If you have a block or widget in your site that you wish to use as a responsive 
 By adding that data-attribute and nothing more, your container will now be tagged with additional classes based on how big they appear:
 - No special class if the container is below 420px (style for this narrow context as your default).
 - `container-sm` if the container is 420px wide or more,
-- `container-md` if it is wider than 640px,
-- `container-lg` if it is wider than 768px, and
+- `container-md` if it is wider than 600px,
+- `container-lg` if it is wider than 720px, and
 - `container-xl` for any element 960px or wider.
 
 These are default values and therefore somewhat arbitrary, so you may also provide your own custom theme- or plugin-specific breakpoint values using the `data-responsive-container` attribute. When rendering your element or block in PHP, pass an array of **class names** and the **minimum width** at which each class should be applied. These class names can be generic like the default `.container-*` classes, or they may be specific to the element being styled:
@@ -92,6 +92,7 @@ Installing and activating this plugin will not change anything about your site o
 
 = 1.1 =
 * Alter class application logic to always apply classes once their minimum threshold width has been met or exceeded.
+* Adjust default breakpoint cutoffs.
 * Adjust README formatting to fix code block rendering issues.
 * Begin work to support usage within the block editor.
 * Un-document the `responsive_container_breakpoints()` method until it is confirmed to be a useful helper.
