@@ -16,6 +16,8 @@ readmeContent = readmeContent.toString();
 readmeContent = [
 	[ /<!-- ignore -->[\s\S]*?<!-- \/ignore -->/g, '' ],
 	[ /\n## ([^\n]+)/g, '\n== $1 ==' ],
+	[ /\n```\n/g, '\n</code></pre>\n' ],
+	[ /```[a-z]+/g, '<pre><code>' ],
 ].reduce(
 	( str, [ pattern, replacement ] ) => str.replace( pattern, replacement ),
 	readmeContent
