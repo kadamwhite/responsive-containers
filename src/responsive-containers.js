@@ -67,10 +67,9 @@ export const updateContainerClasses = ( node, width ) => {
 
 	for ( let i = 0; i < breakpoints.length; i++ ) {
 		const breakpoint = breakpoints[ i ];
-		const nextBreakpoint = breakpoints[ i + 1 ] || { size: Infinity };
 		node.classList.toggle(
 			breakpoint.name,
-			breakpoint.size <= nodeWidth && nextBreakpoint.size > nodeWidth
+			breakpoint.size <= nodeWidth
 		);
 	}
 };
