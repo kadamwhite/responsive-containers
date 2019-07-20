@@ -8,7 +8,7 @@
  * Plugin Name: Responsive Containers
  * Plugin URI:  https://github.com/kadamwhite/responsive-containers
  * Description: Easily style responsive containers using ResizeObserver.
- * Version:     1.0.0
+ * Version:     1.1.0
  * Author:      K Adam White
  * Author URI:  http://kadamwhite.com
  * License:     GPL-2.0+
