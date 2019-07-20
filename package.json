@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "responsive-containers",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A WordPress plugin for styling responsive containers with ResizeObserver",
   "author": "K Adam White",
   "homepage": "https://github.com/kadamwhite/responsive-containers#readme",
