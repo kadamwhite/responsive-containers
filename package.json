@@ -40,13 +40,13 @@
     "resize-observer-polyfill": "^1.5.1"
   },
   "devDependencies": {
-    "@humanmade/webpack-helpers": "^0.5.0",
+    "@humanmade/webpack-helpers": "^0.11.1",
     "@wordpress/eslint-plugin": "^2.3.0",
     "core-js": "^3.1.4",
     "eslint": "^6.0.1",
     "jest": "^24.8.0",
     "jsdom-mount": "^0.1.0",
     "webpack": "^4.35.3",
-    "webpack-cli": "^3.3.5"
+    "webpack-cli": "^3.3.12"
   }
 }
